@@ -12,7 +12,7 @@
 2. Install the software
 > Wamp/Xampp/Apache/ It's up to you
 
-3 Or run local with PHPCli
+3 Or run local with terminal
 > $ php -S localhost:port
 
 ## How to use
