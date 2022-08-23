@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <form action="crypt.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="crypt" value="enc">
+        <label for="inputFileEnc">Select your file to encrypt</label><br><br>
+        <input type="file" name="file" id="inputFileEnc">
+        <br><br>
+        <label for="keyEnc">Select your key to encrypt</label>
+        <input type="text" name="key" id="keyEnc">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <br><br><br>
+
+    <form action="crypt.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="crypt" value="dec">
+        <label for="inputFileDec">Select your file to decrypt</label><br><br>
+        <input type="file" name="file" id="inputFileDec">
+        <br><br>
+        <label for="keyDec">Insert your key to decrypt</label>
+        <input type="text" name="key" id="keyDec">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <br><br><br>
+
+    NOTE: THE DECODER WILL NOT RETURN AN ERROR IF THE KEY IS WRONG, BUT YOUR DECODED FILE WILL BE USELESS
+
+</body>
+
+</html>
