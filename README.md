@@ -25,7 +25,8 @@
 - To decrypt, select the encrypted file and write the right decryption key
 - The decrypted file will be created at "decryptFiles" without '.enc' extension
 - If you write a wrong decryption key, the decrypter will work without error, but your files will be useless
-
+  
+  
 
 ## About
 
