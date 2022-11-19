@@ -45,19 +45,10 @@ function decryptButton(e) {
 }
 
 const InitEncrypt = () => {
-    encryptContainer.addEventListener('click', () => {
-        encryptInputFile.click();
-    });
-
-    encryptContainer.addEventListener('dragover', (e) => {
-        encryptContainer.classList.add('border-red-500');
-        e.preventDefault();
-        e.stopPropagation();
-    }, false);
-
-    encryptContainer.addEventListener('dragleave', () => {
-        encryptContainer.classList.remove('border-red-500');
-    });
+    addEventListenerDragOverOnContainer(encryptContainer);
+    addEventListenerDragLeaveOnContainer(encryptContainer);
+    addEventListenerClickOnRemoveFileBtn(encryptFileBtn, encryptRemoveFileBtn, encryptInputFile, encryptContainer, encryptContainerFileView)
+    encryptContainer.addEventListener('click', () =>{ encryptInputFile.click() }, false);
 
     encryptContainer.addEventListener("drop", e => {
         e.preventDefault();
@@ -81,32 +72,17 @@ const InitEncrypt = () => {
             })
         }
     });
-
-    encryptRemoveFileBtn.addEventListener("click", () => {
-        encryptInputFile.value = "";
-        toggleFileView(encryptContainerFileView, encryptFileBtn, encryptContainer);
-    })
 }
 
 const InitDecrypt = () => {
-    decryptContainer.addEventListener('click', () => {
-        decryptInputFile.click();
-    });
-
-    decryptContainer.addEventListener('dragover', (e) => {
-        decryptContainer.classList.add('border-red-500');
-        e.preventDefault();
-        e.stopPropagation();
-    }, false);
-
-    decryptContainer.addEventListener('dragleave', () => {
-        decryptContainer.classList.remove('border-red-500');
-    });
-
-    decryptContainer.addEventListener("drop", e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const file = e.dataTransfer.files[0];
+    addEventListenerDragOverOnContainer(decryptContainer);
+    addEventListenerDragLeaveOnContainer(decryptContainer);
+    addEventListenerClickOnRemoveFileBtn(decryptFileBtn, decryptRemoveFileBtn, decryptInputFile, decryptContainer, decryptContainerFileView)
+    decryptContainer.addEventListener('click', () =>{ decryptInputFile.click() }, false);
+    
+    decryptContainer.addEventListener("drop", event => {
+        blockEvents(event);
+        const file = event.dataTransfer.files[0];
 
         if (file && getFileType(file) === 'enc') {
             buildContainerFileView(file, decryptFileViewName, decryptFileViewSize);
@@ -119,20 +95,43 @@ const InitDecrypt = () => {
         if (file && getFileType(file) === 'enc') {
             buildContainerFileView(file, decryptFileViewName, decryptFileViewSize);
             toggleFileView(decryptContainerFileView, decryptFileBtn, decryptContainer);
-
-            decryptFileBtn.addEventListener("click", () => {
-                decryptButton(file)
-            })
-
+            decryptFileBtn.addEventListener("click", decryptButton(file));
         } else {
             alert("Tipo de arquivo no formato invalido")
         }
     });
+}
 
-    decryptRemoveFileBtn.addEventListener("click", () => {
-        decryptInputFile.value = "";
-        toggleFileView(decryptContainerFileView, decryptFileBtn, decryptContainer);
-    })
+const addEventListenerDragOverOnContainer = (container) =>{
+    container.addEventListener('dragover', (event) =>{ addDragoverStatus(container); blockEvents(event) }, false);
+}
+
+const addEventListenerDragLeaveOnContainer = (container) => {
+    container.addEventListener('dragleave', () => { removeDragoverStatus(container) }, false);
+}
+
+const addEventListenerClickOnRemoveFileBtn = (fileBtn, removeFileBtn, inputFile, container, containerFileView) =>{
+    removeFileBtn.addEventListener("click", () => { 
+        clearInputFileValue(inputFile);
+        toggleFileView(containerFileView, fileBtn, container);
+    }, false );
+}
+
+const blockEvents = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+}
+
+const addDragoverStatus = (container) =>{
+    container.classList.add('border-red-500');
+}
+
+const removeDragoverStatus = (container) => {
+    container.classList.remove('border-red-500');
+}
+
+const clearInputFileValue = (inputFile) => {
+    inputFile.value = "";
 }
 
 const getFileType = (file) => {
