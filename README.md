@@ -63,6 +63,14 @@ Adicione comandos de execução e exemplos que você acha que os usuários achar
         </sub>
       </a>
     </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/u/66931989?v=4" width="100px;" alt="Foto de Guilherme Barros no GitHub"/><br>
+        <sub>
+          <b>Gustavo Cruz</b>
+        </sub>
+      </a>
+    </td>
   </tr>
 </table>
 
