@@ -1,4 +1,3 @@
-
 //Encrypt
 const encryptInputFile = document.getElementById("encryptInputFile");
 const encryptInputPassword = document.getElementById("encryptInputPassword");
@@ -24,26 +23,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
     InitDecrypt();
 });
 
-function cryptButton(e) {
-    let formData = new FormData();
-    let file = e;
-    formData.append("file", file);
-    fetch("/upload.php", {
-        method: "POST",
-        body: formData
-    })
-}
-function decryptButton(e) {
-    let formData = new FormData();
-    let file = e;
-    console.log(e);
-    formData.append("file", file);
-    fetch("/upload.php", {
-        method: "POST",
-        body: formData
-    })
-}
-
 const InitEncrypt = () => {
     addEventListenerDragOverOnContainer(encryptContainer);
     addEventListenerDragLeaveOnContainer(encryptContainer);
@@ -58,6 +37,7 @@ const InitEncrypt = () => {
         if (file) {
             buildContainerFileView(file, encryptFileViewName, encryptFileViewSize);
             toggleFileView(encryptContainerFileView, encryptFileBtn, encryptContainer);
+            addEventListenerClickOnActionSendFileBtn(encryptFileBtn, file);
         }
     }, false);
 
@@ -66,10 +46,7 @@ const InitEncrypt = () => {
         if (file) {
             buildContainerFileView(file, encryptFileViewName, encryptFileViewSize);
             toggleFileView(encryptContainerFileView, encryptFileBtn, encryptContainer);
-
-            encryptFileBtn.addEventListener("click", () => {
-                cryptButton(file);
-            })
+            addEventListenerClickOnActionSendFileBtn(encryptFileBtn, file);
         }
     });
 }
@@ -78,7 +55,7 @@ const InitDecrypt = () => {
     addEventListenerDragOverOnContainer(decryptContainer);
     addEventListenerDragLeaveOnContainer(decryptContainer);
     addEventListenerClickOnRemoveFileBtn(decryptFileBtn, decryptRemoveFileBtn, decryptInputFile, decryptContainer, decryptContainerFileView)
-    decryptContainer.addEventListener('click', () =>{ decryptInputFile.click() }, false);
+    decryptContainer.addEventListener('click', () => decryptInputFile.click(), false);
     
     decryptContainer.addEventListener("drop", event => {
         blockEvents(event);
@@ -87,6 +64,9 @@ const InitDecrypt = () => {
         if (file && getFileType(file) === 'enc') {
             buildContainerFileView(file, decryptFileViewName, decryptFileViewSize);
             toggleFileView(decryptContainerFileView, decryptFileBtn, decryptContainer);
+            addEventListenerClickOnActionSendFileBtn(decryptFileBtn, file);
+        }else {
+            alert("Tipo de arquivo no formato invalido");
         }
     }, false);
 
@@ -95,9 +75,9 @@ const InitDecrypt = () => {
         if (file && getFileType(file) === 'enc') {
             buildContainerFileView(file, decryptFileViewName, decryptFileViewSize);
             toggleFileView(decryptContainerFileView, decryptFileBtn, decryptContainer);
-            decryptFileBtn.addEventListener("click", decryptButton(file));
+            addEventListenerClickOnActionSendFileBtn(decryptFileBtn, file);
         } else {
-            alert("Tipo de arquivo no formato invalido")
+            alert("Tipo de arquivo no formato invalido");
         }
     });
 }
@@ -115,6 +95,27 @@ const addEventListenerClickOnRemoveFileBtn = (fileBtn, removeFileBtn, inputFile,
         clearInputFileValue(inputFile);
         toggleFileView(containerFileView, fileBtn, container);
     }, false );
+}
+
+const addEventListenerClickOnActionSendFileBtn = (fileBtn, file) =>{
+    fileBtn.addEventListener("click", () => decryptBtn(file));
+}
+
+const sendFile = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    fetch("/upload.php", {
+        method: "POST",
+        body: formData
+    })
+} 
+
+const encryptBtn = (file) => {
+    sendFile(file)
+}
+
+const decryptBtn = (file) => {
+    sendFile(file)
 }
 
 const blockEvents = (event) => {
