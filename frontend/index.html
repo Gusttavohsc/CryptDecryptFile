@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EncryptDecryptFile Online</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <main class="max-w-[1920px] m-auto w-screen h-screen grid grid-cols-1 lg:grid-cols-2">
+        <div class="flex flex-col items-center justify-center">
+            <div class="text-center my-6">
+                <h2 class="text-encryptPrimary text-3xl font-bold">Criptografar</h2>
+                <p class="block">Arquivos podem ser de qualquer formato</p>
+            </div>
+
+            <div 
+            id="encryptContainer" 
+            class="w-96 h-60  border-encryptPrimary bg-encryptShadow border-2 border-dashed rounded-2xl p-4 my-4 flex items-center justify-center cursor-pointer"
+            >
+                <div class="m-auto">
+                    <img class="m-auto" src="./assets/icon/folder.png" alt="">
+                    <p class="text-zinc-400 text-center">Arraste e solte seu arquivo aqui para Criptografar</p>
+                </div>
+                <input class="hidden" type="file" name="" id="encryptInputFile">
+            </div>
+
+            <div 
+                id="encryptContainerFileView" 
+                class="w-96 h-60 rounded-2xl p-4 my-4 flex items-center justify-center absolute hidden"
+            >
+                <div class="flex items-center bg-white justify-between w-96 border-2 border-zinc-100 rounded-lg p-4 drop-shadow-xl">
+                    <i class='bx bx-file-blank text-4xl mx-2'></i>
+                    <div>
+                        <p id="encryptFileViewName" class="w-44 truncate font-bold">Nome do Arquivo.pdf</p>
+                        <p id="encryptFileViewSize">Tamanho MB</p>
+                    </div>
+                    <i id="encryptRemoveFileBtn" class='bx bxs-x-circle text-red-500 text-3xl cursor-pointer'></i>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col">
+                <label for="encryptInputPassword">Senha</label>
+                <input 
+                    type="text" 
+                    name="encryptInputPassword" 
+                    id="encryptInputPassword" 
+                    class="bg-slate-200 border-2 border-none py-2 px-2 w-96 rounded-lg"
+                >
+            </div>
+
+            <button id="encryptFileBtn" class="py-2 my-6 text-white flex items-center justify-center w-96 rounded-lg bg-encryptPrimary bg-zinc-400 gap-3 transition-all hover:brightness-125 ">
+                <img width="20" src="./assets/icon/padlock-closed.png" alt="">
+                <p class="font-semibold">Criptografar</p>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+            <div class="text-center my-6">
+                <h2 class="text-decryptPrimary text-3xl font-bold">Descriptografar</h2>
+                <p class="block">Arquivos devem ser no formato <span class="font-bold text-decryptPrimary">.enc</span> </p>
+            </div>
+
+            <div 
+            id="decryptContainer" 
+            class="w-96 h-60  border-decryptPrimary bg-decryptShadow border-2 border-dashed rounded-2xl p-4 my-4 flex items-center justify-center cursor-pointer"
+            >
+                <div class="m-auto">
+                    <img class="m-auto" src="./assets/icon/folder2.png" alt="">
+                    <p class="text-zinc-400 text-center">Arraste e solte seu arquivo aqui para Criptografar</p>
+                </div>
+                <input class="hidden" type="file" name="decryptInputFile" id="decryptInputFile" accept=".enc">
+            </div>
+
+            <div 
+                id="decryptContainerFileView" 
+                class="w-96 h-60 rounded-2xl p-4 my-4 flex items-center justify-center absolute hidden"
+            >
+                <div class="flex items-center bg-white justify-between w-96 border-2 border-zinc-100 rounded-lg p-4 drop-shadow-xl">
+                    <i class='bx bx-file-blank text-4xl mx-2'></i>
+                    <div>
+                        <p id="decryptFileViewName" class="w-44 truncate font-bold">Nome do Arquivo.pdf</p>
+                        <p id="decryptFileViewSize">Tamanho MB</p>
+                    </div>
+                    <i id="decryptRemoveFileBtn" class='bx bxs-x-circle text-red-500 text-3xl cursor-pointer'></i>
+                </div>
+            </div>
+
+
+            <div class="flex flex-col">
+                <label for="decryptInputPassword">Senha</label>
+                <input 
+                    type="text" 
+                    name="decryptInputPassword" 
+                    id="decryptInputPassword" 
+                    class="bg-slate-200 border-2 border-none py-2 px-2 w-96 rounded-lg"
+                >
+            </div>
+
+            <button id="decryptFileBtn" class="py-2 my-6 text-white flex items-center justify-center w-96 rounded-lg bg-decryptPrimary bg-zinc-400 gap-3 transition-all hover:brightness-125 ">
+                <img width="20" src="./assets/icon/padlock-closed.png" alt="">
+                <p class="font-semibold">Descriptografar</p>
+            </button>
+        </div>
+    </main>
+
+    <script src="js/tailwindConfig.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
